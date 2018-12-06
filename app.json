@@ -1,0 +1,15 @@
+{
+    "id": "a041a6cd-c515-4399-99e8-3d67580430b4",
+    "version": "0.0.1",
+    "requiredApiVersion": "^0.9.13",
+    "iconFile": "icon.png",
+    "author": {
+        "name": "Kevin Heidrich",
+        "homepage": "https://github.com/kheidrich/uberrocket",
+        "support": "https://github.com/kheidrich/uber-rocket/issues"
+    },
+    "name": "uberocket",
+    "nameSlug": "uberocket",
+    "classFile": "UberocketApp.ts",
+    "description": "Make your uber rides directly from your rocket.chat"
+}
