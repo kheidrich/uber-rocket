@@ -1,3 +1,3 @@
 export interface IChatCommand {
-	execute(params: Map<string, string>): Promise<any>;
+	execute(params: Array<string>): Promise<any>;
 }

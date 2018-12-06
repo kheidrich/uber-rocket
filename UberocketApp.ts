@@ -1,20 +1,18 @@
 import { CommandParser } from './src/command/CommandParser';
 import { CommandExecuter } from './src/command/CommandExecuter';
 import {
-    ILogger, IConfigurationExtend,
+    ILogger, IConfigurationExtend, IHttp,
 } from '@rocket.chat/apps-engine/definition/accessors';
 import { App } from '@rocket.chat/apps-engine/definition/App';
 import { IAppInfo } from '@rocket.chat/apps-engine/definition/metadata';
 
 export class UberocketApp extends App {
     private commandExecuter: CommandExecuter;
-    private commandParser: CommandParser;
 
     constructor(info: IAppInfo, logger: ILogger) {
         super(info, logger);
-        
-        this.commandParser = new CommandParser();
-        this.commandExecuter = new CommandExecuter(this.commandParser);
+    
+        this.commandExecuter = new CommandExecuter();
     }
 
     public async initialize(configuration: IConfigurationExtend): Promise<void> {
