@@ -1,0 +1,4 @@
+{
+	"uber_rocket_params_example": "ride from address to address, cancel rideId, help",
+	"uber_rocket_cmd_description": "Make rides and cancel rides to uber"
+}
