@@ -4,7 +4,7 @@ import { CancelCommand } from './commands/CancelCommand';
 import { ConfirmCommand } from './commands/ConfirmCommand';
 import { RequestCommand } from './commands/RequestCommand';
 import { InvalidCommand } from './commands/InvalidCommand';
-import { CommandsEnum } from './commands/CommandsEnum';
+import { CommandTypes } from './commands/CommandTypes';
 import { IChatCommand } from './IChatCommand';
 import { HelpCommand } from './commands/HelpCommand';
 import { GeocodingService } from '../sdk/GeocodingService';
@@ -19,7 +19,7 @@ export class CommandParser {
     }
 
     private isValidCommand(command: string): Boolean {
-        return command === undefined || Object.values(CommandsEnum).includes(command);
+        return command === undefined || Object.values(CommandTypes).includes(command);
     }
 
     parse(command: string): IChatCommand {
