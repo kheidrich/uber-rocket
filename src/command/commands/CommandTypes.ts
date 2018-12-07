@@ -3,5 +3,6 @@ export enum CommandTypes {
 	HELP = 'help',
 	CANCEL = 'cancel',
 	CONFIRM = 'confirm',
-	LOGIN = 'login'
+	LOGIN = 'login',
+	AUTHORIZE = 'authorize'
 };

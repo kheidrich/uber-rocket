@@ -18,7 +18,7 @@ export class CommandExecuter implements ISlashCommand {
 
 	public async executor(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp, persis: IPersistence): Promise<void> {
 		try {
-			this.commandParser = new CommandParser(http, persis);
+			this.commandParser = new CommandParser(http, persis, read.getPersistenceReader());
 			this.messageWriter = new MessageWriter(context, modify, read);
 			const params: Array<string> = cloneArray(context.getArguments());
 			const command = params[0];
