@@ -1,6 +1,8 @@
 import { IHttp, IHttpRequest, IHttpResponse } from "@rocket.chat/apps-engine/definition/accessors";
 import { TokenExchangeParams } from "./TokenExchangeParams";
 import { TokenExchangeResponse } from "./TokenExchangeResponse";
+import { RefreshAccessTokenParams } from "./RefreshAccessTokenParams";
+import { RefreshAccessTokenResponse } from "./RefreshAccessTokenResponse";
 
 export class AuthService {
 	private http: IHttp;
@@ -40,7 +42,33 @@ export class AuthService {
 
 		return response;
 	}
-	
+
+	async refreshAccessToken(params: RefreshAccessTokenParams): Promise<RefreshAccessTokenResponse> {
+		let response: RefreshAccessTokenResponse;
+		let body = {};
+		let refreshRequest: IHttpRequest;
+		let refreshResponse: IHttpResponse;
+
+		body['client_secret'] = params.clientSecret;
+		body['client_id'] = params.clientId;
+		body['refresh_token'] = params.refreshToken;
+		body['grant_type'] = 'refresh_token';
+
+		refreshRequest = {
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: this.toUrlEncoded(body)
+		};
+		refreshResponse = JSON.parse((await this.http.post('https://login.uber.com/oauth/v2/token', refreshRequest)).data);
+		response = {
+			accessToken: refreshResponse['access_token'],
+			expirationDate: this.calculateExpirationDate(refreshResponse['expires_in'])
+		}
+
+		return response;
+	}
+
 	private toUrlEncoded(obj: Object): string {
 		return Object.keys(obj).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(obj[k])).join('&');
 	}
