@@ -4,7 +4,7 @@ import { TokenExchangeParams } from "../../src/sdk/auth/TokenExchangeParams";
 import { TokenExchangeResponse } from "../../src/sdk/auth/TokenExchangeResponse";
 import UberClientInfo from "../../src/config/UberClientInfo";
 import { RefreshAccessTokenParams } from "../../src/sdk/auth/RefreshAccessTokenParams";
-import { RefreshAccessTokenResponse } from "../../src/sdk/auth/RefreshAccessTokenResponse";
+import { AccessToken } from "../../src/sdk/auth/AccessToken";
 
 let httpMock: HttpMock;
 let authService: AuthService;
@@ -38,7 +38,7 @@ async function testTokenExchange() {
 async function testRefreshToken() {
     console.log('refreshToken()');
     let params: RefreshAccessTokenParams;
-    let response: RefreshAccessTokenResponse;
+    let response: AccessToken;
 
     params = { clientId, clientSecret, refreshToken: 'MA.CAESEIONX9o_KU4rpZ06nRSy6cciATEoATIBMQ.yZfEPlcZdNFBBO3uvG1c9dhS-XPZbWsX1Ibni0P1suM.OoCRnRUdGqc5a8MFppAqhimzqJpyPlJunMJH_I4jZ_I' }
     response = await authService.refreshAccessToken(params);

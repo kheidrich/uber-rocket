@@ -1,15 +1,15 @@
-// import { RideRequestParams } from './RiderRequestParams';
 import { RideEstimation } from './RideEstimation';
 import { Route } from './Route';
 import { IHttp } from '@rocket.chat/apps-engine/definition/accessors';
-import { Address } from '../Address';
-// import { RideTypes } from './RideTypes';
+import { SessionService } from '../SessionService';
 
 export class RideService {
 	private http: IHttp;
+	private sessionService: SessionService;
 
-	constructor(http: IHttp) {
+	constructor(http: IHttp, sessionService: SessionService) {
 		this.http = http;
+		this.sessionService = sessionService;
 	}
 
 	async estimate(address: Route): Promise<Array<RideEstimation>> {
