@@ -1,3 +1,4 @@
+import { Route } from './../../sdk/ride/Route';
 import { cloneArray } from './../../helpers/array.helper';
 import { InvalidCommand } from './InvalidCommand';
 import { IPersistence } from '@rocket.chat/apps-engine/definition/accessors';
@@ -5,6 +6,7 @@ import { GeocodingService } from './../../sdk/GeocodingService';
 import { RideService } from '../../sdk/ride/RideService';
 import { IFormattedMessage } from './../../message/IFormattedMessage';
 import { IChatCommand } from '../IChatCommand';
+import { RequestMessage } from '../../message/RequestMessage';
 
 export class RequestCommand implements IChatCommand {
 	private rideService: RideService;
@@ -43,7 +45,10 @@ export class RequestCommand implements IChatCommand {
 			const destination: Map<string, string> = this.proccessParameters(params);
 			const from = await this.geocodingService.getCoordinates(destination.get('from') as string);
 			const to = await this.geocodingService.getCoordinates(destination.get('to') as string);
-
+			const estimateResponse = await this.rideService.estimate({ start: { latitude: from.latitude, longitude: from.longitude }, end: { latitude: to.latitude, longitude: to.longitude } } as Route);
+			const requestMessage =  new RequestMessage();
+			requestMessage.setMessage(estimateResponse);
+			return requestMessage;
 		} catch (error) {
 			console.log(error)
 		}

@@ -5,5 +5,5 @@ export interface RideEstimation {
 	lowEstimate: number,
 	currency: string,
 	distance: number,
-	extimatedTimeToArrive: number
+	estimatedTimeToArrive: number
 }
