@@ -1,4 +1,3 @@
-import { CommandParser } from './src/command/CommandParser';
 import { CommandExecuter } from './src/command/CommandExecuter';
 import {
     ILogger, IConfigurationExtend, IHttp,

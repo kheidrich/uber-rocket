@@ -27,7 +27,7 @@ export class CommandExecuter implements ISlashCommand {
 			const message: IFormattedMessage = await this.selectedCommand.execute(params);
 			this.messageWriter.writeMessage(message.getFormatedMessage());
 		} catch (error) {
-
+			this.messageWriter.writeMessage((error as IFormattedMessage).getFormatedMessage());
 		}
 	}
 }
