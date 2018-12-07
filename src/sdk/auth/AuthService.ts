@@ -2,7 +2,7 @@ import { IHttp, IHttpRequest, IHttpResponse } from "@rocket.chat/apps-engine/def
 import { TokenExchangeParams } from "./TokenExchangeParams";
 import { TokenExchangeResponse } from "./TokenExchangeResponse";
 import { RefreshAccessTokenParams } from "./RefreshAccessTokenParams";
-import { RefreshAccessTokenResponse } from "./RefreshAccessTokenResponse";
+import { AccessToken } from "./AccessToken";
 
 export class AuthService {
 	private http: IHttp;
@@ -43,8 +43,8 @@ export class AuthService {
 		return response;
 	}
 
-	async refreshAccessToken(params: RefreshAccessTokenParams): Promise<RefreshAccessTokenResponse> {
-		let response: RefreshAccessTokenResponse;
+	async refreshAccessToken(params: RefreshAccessTokenParams): Promise<AccessToken> {
+		let response: AccessToken;
 		let body = {};
 		let refreshRequest: IHttpRequest;
 		let refreshResponse: IHttpResponse;
@@ -62,7 +62,7 @@ export class AuthService {
 		};
 		refreshResponse = JSON.parse((await this.http.post('https://login.uber.com/oauth/v2/token', refreshRequest)).data);
 		response = {
-			accessToken: refreshResponse['access_token'],
+			token: refreshResponse['access_token'],
 			expirationDate: this.calculateExpirationDate(refreshResponse['expires_in'])
 		}
 
