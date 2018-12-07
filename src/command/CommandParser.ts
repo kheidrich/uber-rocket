@@ -27,10 +27,10 @@ export class CommandParser {
             throw new InvalidCommand();
         }
         const actions = {
-            [CommandsEnum.REQUEST]: () => new RequestCommand(new GeocodingService(this.http), new RideService(this.http)),
-            [CommandsEnum.CONFIRM]: () => new ConfirmCommand(this.http, this.persistence),
-            [CommandsEnum.CANCEL]: () => new CancelCommand(this.http, this.persistence),
-            [CommandsEnum.HELP]: () => new HelpCommand(),
+            [CommandTypes.REQUEST]: () => new RequestCommand(new GeocodingService(this.http), new RideService(this.http)),
+            [CommandTypes.CONFIRM]: () => new ConfirmCommand(this.http, this.persistence),
+            [CommandTypes.CANCEL]: () => new CancelCommand(this.http, this.persistence),
+            [CommandTypes.HELP]: () => new HelpCommand(),
         }
 
         return actions[command]();
