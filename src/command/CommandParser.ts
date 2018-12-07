@@ -8,6 +8,8 @@ import { CommandTypes } from './commands/CommandTypes';
 import { IChatCommand } from './IChatCommand';
 import { HelpCommand } from './commands/HelpCommand';
 import { GeocodingService } from '../sdk/GeocodingService';
+import { LoginCommand } from './commands/LoginCommand';
+import { AuthService } from '../sdk/auth/AuthService';
 
 export class CommandParser {
     private http: IHttp;
@@ -31,6 +33,7 @@ export class CommandParser {
             [CommandTypes.CONFIRM]: () => new ConfirmCommand(this.http, this.persistence),
             [CommandTypes.CANCEL]: () => new CancelCommand(this.http, this.persistence),
             [CommandTypes.HELP]: () => new HelpCommand(),
+            [CommandTypes.LOGIN]: () => new LoginCommand(new AuthService(this.http))
         }
 
         return actions[command]();
