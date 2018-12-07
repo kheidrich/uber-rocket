@@ -1,8 +1,7 @@
 import { cloneArray } from './../../helpers/array.helper';
 import { InvalidCommand } from './InvalidCommand';
-import { IHttp } from '@rocket.chat/apps-engine/definition/accessors';
+import { IPersistence } from '@rocket.chat/apps-engine/definition/accessors';
 import { GeocodingService } from './../../sdk/GeocodingService';
-import { Address } from './../../sdk/Address';
 import { RideService } from './../../sdk/RideService';
 import { IFormattedMessage } from './../../message/IFormattedMessage';
 import { IChatCommand } from '../IChatCommand';
@@ -11,12 +10,12 @@ export class RequestCommand implements IChatCommand {
 	private rideService: RideService;
 	private geocodingService: GeocodingService;
 
-	constructor(http: IHttp) {
-		this.rideService = new RideService(http);
-		this.geocodingService = new GeocodingService(http);
+	constructor(geocodingService: GeocodingService, rideService: RideService) {
+		this.rideService = rideService;
+		this.geocodingService = geocodingService;
 	}
 
-	private proccessParameters(params: Array<string>): Map<string, string> {
+	private validateParameters(params: Array<string>): void {
 		if (params.length <= 2) {
 			throw new InvalidCommand();
 		}
@@ -27,6 +26,9 @@ export class RequestCommand implements IChatCommand {
 		if (!hasRequiredReservedWords || !fromIsTheFirstWord || toIsTheSecondWord) {
 			throw new InvalidCommand();
 		}
+	}
+
+	private proccessParameters(params: Array<string>): Map<string, string> {
 		const toIndex = params.findIndex(item => item === 'to');
 		const howManyWordBetweenFromAndTwo = toIndex - 1;
 		const fromParams = cloneArray(params).splice(1, howManyWordBetweenFromAndTwo);
@@ -37,10 +39,11 @@ export class RequestCommand implements IChatCommand {
 
 	async execute(params: Array<string>): Promise<any> {
 		try {
+			this.validateParameters(params)
 			const destination: Map<string, string> = this.proccessParameters(params);
 			const from = await this.geocodingService.getCoordinates(destination.get('from') as string);
 			const to = await this.geocodingService.getCoordinates(destination.get('to') as string);
-			
+
 		} catch (error) {
 			console.log(error)
 		}
