@@ -2,14 +2,13 @@ import { AuthService } from "../../src/sdk/auth/AuthService";
 import { HttpMock } from "../mocks/HttpMock";
 import { TokenExchangeParams } from "../../src/sdk/auth/TokenExchangeParams";
 import { TokenExchangeResponse } from "../../src/sdk/auth/TokenExchangeResponse";
-import UberClientInfo from "../utils/UberClientInfo";
+import * as UberClientInfo from '../../src/config/uber-client.json';
 
 let httpMock: HttpMock;
 let authService: AuthService;
 let { clientId, clientSecret } = UberClientInfo;
 
 httpMock = new HttpMock();
-
 authService = new AuthService(httpMock);
 
 testGetAuthUrl();
@@ -27,8 +26,7 @@ async function testTokenExchange() {
     let params: TokenExchangeParams;
     let exchangeResponse: TokenExchangeResponse;
 
-    params = { clientId, clientSecret, code: 'crd.EA.CAESELjj7fHJtEjyox-4L6aAyFciATE.VcwVtCNzBm98JfPlZwki3-uICMsa_aArQGQuMYT3wNk#_' };
+    params = { clientId, clientSecret, code: 'crd.EA.CAESELEY-TnC_00Pso-aIilrT7wiATE.ffhqqZN4OkqxsyXqB4GJXpv7oXQ13wqAcM4e_c0HKTs#_' };
     exchangeResponse = await authService.tokenExchange(params);
-
-    console.assert(!!exchangeResponse.accessToken, 'No access token returned');
+    console.log(exchangeResponse);
 }

@@ -4,5 +4,6 @@ export default {
     method: RequestMethod.GET,
     url: '/test',
     headers: {},
-    statusCode: 200
+    statusCode: 200,
+    data: {}
 }

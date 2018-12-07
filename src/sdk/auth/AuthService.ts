@@ -25,26 +25,29 @@ export class AuthService {
 		body['grant_type'] = 'authorization_code';
 		body['redirect_uri'] = 'https://github.com/kheidrich/uberocket';
 
-		console.log( this.toUrlEncoded(body));
 		exchangeRequest = {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			data: this.toUrlEncoded(body)
 		};
-
-		exchangeResponse = await this.http.post('https://login.uber.com/oauth/v2/token', exchangeRequest);
-		response = { accessToken: 'token' };
+		exchangeResponse = JSON.parse((await this.http.post('https://login.uber.com/oauth/v2/token', exchangeRequest)).data);
+		response = {
+			accessToken: exchangeResponse['access_token'],
+			refreshToken: exchangeResponse['refresh_token'],
+			expirationDate: this.calculateExpirationDate(exchangeResponse['expires_in'])
+		};
 
 		return response;
 	}
-
-	async login(): Promise<any> {
-
-
+	
+	private toUrlEncoded(obj: Object): string {
+		return Object.keys(obj).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(obj[k])).join('&');
 	}
 
-	private toUrlEncoded(obj: Object): string {
-		 return Object.keys(obj).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(obj[k])).join('&');
+	private calculateExpirationDate(duration: number): Date {
+		let now = Date.now();
+
+		return new Date(now + duration);
 	}
 }

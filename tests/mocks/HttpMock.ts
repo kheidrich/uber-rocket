@@ -8,11 +8,11 @@ export class HttpMock implements IHttp {
 
         response = HttpResponseMock;
 
-        return Promise.resolve(response);
+        return response;
     }
 
     async post(url: string, options: IHttpRequest): Promise<IHttpResponse> {
-        let response = HttpResponseMock;
+        let response: IHttpResponse = HttpResponseMock;
         let config = {
             method: 'POST',
             uri: url,
@@ -24,14 +24,12 @@ export class HttpMock implements IHttp {
         
         
         rawResponse = await rq(config);
-        console.log(rawResponse.request.body);
-        
         response.headers = rawResponse.headers;
+        response.statusCode = rawResponse.statusCode;
         response.url = config.uri;
-        
-        console.log(rawResponse.body.access_token);
+        response.data = rawResponse.body;
 
-        return Promise.resolve(response);
+        return response;
     }
 
     async put(url: string, options: IHttpRequest): Promise<IHttpResponse> {
@@ -39,7 +37,7 @@ export class HttpMock implements IHttp {
 
         response = HttpResponseMock;
 
-        return Promise.resolve(response);
+        return response;
     }
 
     async del(url: string, options: IHttpRequest): Promise<IHttpResponse> {
@@ -47,6 +45,6 @@ export class HttpMock implements IHttp {
 
         response = HttpResponseMock;
 
-        return Promise.resolve(response);
+        return response;
     }
 }
