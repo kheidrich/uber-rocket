@@ -2,7 +2,7 @@ import { cloneArray } from './../../helpers/array.helper';
 import { InvalidCommand } from './InvalidCommand';
 import { IPersistence } from '@rocket.chat/apps-engine/definition/accessors';
 import { GeocodingService } from './../../sdk/GeocodingService';
-import { RideService } from './../../sdk/RideService';
+import { RideService } from '../../sdk/ride/RideService';
 import { IFormattedMessage } from './../../message/IFormattedMessage';
 import { IChatCommand } from '../IChatCommand';
 

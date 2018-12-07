@@ -1,4 +1,4 @@
-import { RideService } from './../sdk/RideService';
+import { RideService } from '../sdk/ride/RideService';
 import { IHttp, IPersistence, IModify } from '@rocket.chat/apps-engine/definition/accessors';
 import { CancelCommand } from './commands/CancelCommand';
 import { ConfirmCommand } from './commands/ConfirmCommand';
