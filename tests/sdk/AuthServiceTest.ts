@@ -2,7 +2,7 @@ import { AuthService } from "../../src/sdk/auth/AuthService";
 import { HttpMock } from "../mocks/HttpMock";
 import { TokenExchangeParams } from "../../src/sdk/auth/TokenExchangeParams";
 import { TokenExchangeResponse } from "../../src/sdk/auth/TokenExchangeResponse";
-import * as UberClientInfo from '../../src/config/uber-client.json';
+import UberClientInfo from "../../src/config/UberClientInfo";
 import { RefreshAccessTokenParams } from "../../src/sdk/auth/RefreshAccessTokenParams";
 import { RefreshAccessTokenResponse } from "../../src/sdk/auth/RefreshAccessTokenResponse";
 
